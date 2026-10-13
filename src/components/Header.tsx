@@ -114,10 +114,10 @@ export const Header: FC<HeaderProps> = ({
             <span className="xs:hidden">TURNO</span>
           </button>
 
-          {/* Hamburger Icon */}
+          {/* Hamburger Icon (Only on mobile / tablet when full nav is hidden) */}
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="p-1.5 text-stone-900 hover:text-[#df3b68] transition-colors focus:outline-none rounded-lg hover:bg-stone-50"
+            className="lg:hidden p-1.5 text-stone-900 hover:text-[#df3b68] transition-colors focus:outline-none rounded-lg hover:bg-stone-50"
             aria-label={mobileMenuOpen ? 'Cerrar menú' : 'Abrir menú'}
           >
             {mobileMenuOpen ? (
