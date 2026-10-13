@@ -13,6 +13,10 @@ import { BookingModal } from './components/BookingModal';
 import { Monitor, Globe, Smartphone, Sparkles } from 'lucide-react';
 
 export function App() {
+  // Check if we are running inside the isolated mobile iframe preview
+  const isMobileFrame = typeof window !== 'undefined' && 
+    new URLSearchParams(window.location.search).get('view') === 'mobile-frame';
+
   const [viewMode, setViewMode] = useState<'mockup' | 'fullscreen' | 'mobile'>('mockup');
   const [isBookingOpen, setIsBookingOpen] = useState(false);
   const [selectedService, setSelectedService] = useState<string>('Kapping Gel & Nivelación');
@@ -54,14 +58,30 @@ export function App() {
         <Contact onOpenBooking={() => handleOpenBooking()} />
       </main>
       <Footer />
+
+      {/* Booking Modal available inside iframe as well */}
+      <BookingModal
+        isOpen={isBookingOpen}
+        onClose={() => setIsBookingOpen(false)}
+        preselectedService={selectedService}
+      />
     </div>
   );
+
+  // If this instance is rendered inside the mobile iframe emulator, return only the web page content
+  if (isMobileFrame) {
+    return (
+      <div className="w-full min-h-screen bg-white">
+        {renderLandingContent()}
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-[#eaedf0] text-stone-900 flex flex-col font-sans">
       
       {/* Main View Area */}
-      <div className="flex-1 flex flex-col items-center justify-start p-0 sm:py-6 sm:px-4 md:px-6 w-full min-w-0">
+      <div className="flex-1 flex flex-col items-center justify-start p-0 sm:py-6 sm:px-4 md:px-6 w-full min-w-0 pb-20">
         {viewMode === 'mockup' && (
           <div className="w-full flex justify-center animate-in fade-in duration-300 min-w-0">
             <BrowserChrome url="candesarobestudio.com">
@@ -76,21 +96,31 @@ export function App() {
           </div>
         )}
 
+        {/* Pixel-Perfect Mobile Phone Emulator with Isolated Viewport via iframe */}
         {viewMode === 'mobile' && (
-          <div className="w-full max-w-[410px] mx-auto my-4 bg-stone-900 rounded-[44px] p-3 shadow-2xl border-4 border-stone-800 animate-in fade-in duration-300">
-            {/* Phone notch */}
-            <div className="w-28 h-4 bg-black rounded-full mx-auto mb-2 flex items-center justify-center">
-              <div className="w-2 h-2 rounded-full bg-stone-800 mr-2" />
-              <div className="w-2 h-2 rounded-full bg-[#df3b68]/40" />
+          <div className="flex flex-col items-center my-4 animate-in fade-in zoom-in-95 duration-300">
+            <div className="w-[390px] h-[780px] bg-stone-900 rounded-[50px] p-3 shadow-2xl border-4 border-stone-800 flex flex-col items-center relative">
+              {/* Dynamic Island / Notch */}
+              <div className="w-28 h-4 bg-black rounded-full mb-2 flex items-center justify-center shrink-0">
+                <div className="w-2.5 h-2.5 rounded-full bg-stone-800 mr-2.5" />
+                <div className="w-2 h-2 rounded-full bg-[#df3b68]/50" />
+              </div>
+              
+              {/* Isolated 375px Viewport Iframe */}
+              <iframe
+                src="/?view=mobile-frame"
+                title="Cande Sarobe Studio — Vista Móvil"
+                className="w-full flex-1 rounded-[38px] bg-white border-0 shadow-inner overflow-y-auto"
+              />
             </div>
-            <div className="bg-white rounded-[32px] overflow-hidden max-h-[780px] overflow-y-auto">
-              {renderLandingContent()}
-            </div>
+            <p className="text-xs text-stone-500 font-sans mt-3">
+              📱 Vista móvil real simulada (resolución nativa de smartphone 375px)
+            </p>
           </div>
         )}
       </div>
 
-      {/* Floating Bottom View Switcher Dock (Leaves Top Navbar 100% Fixed & Free) */}
+      {/* Floating Bottom View Switcher Dock */}
       <aside 
         aria-label="Controles de visualización" 
         className="fixed bottom-4 sm:bottom-6 left-1/2 -translate-x-1/2 z-50 bg-stone-900/90 hover:bg-stone-900 backdrop-blur-md text-white py-1.5 px-2.5 sm:px-3 rounded-full shadow-2xl border border-stone-700/80 flex items-center space-x-1 sm:space-x-2 transition-all select-none"
@@ -145,7 +175,7 @@ export function App() {
         </button>
       </aside>
 
-      {/* Booking Appointment Modal */}
+      {/* Booking Appointment Modal for main view */}
       <BookingModal
         isOpen={isBookingOpen}
         onClose={() => setIsBookingOpen(false)}
