@@ -10,7 +10,8 @@ import {
   Minus, 
   Square, 
   X, 
-  Plus 
+  Plus,
+  Lock
 } from 'lucide-react';
 
 interface BrowserChromeProps {
@@ -23,12 +24,13 @@ export const BrowserChrome: FC<BrowserChromeProps> = ({
   url = 'candesarobestudio.com' 
 }) => {
   return (
-    <div className="w-full max-w-[1440px] mx-auto bg-white rounded-xl shadow-mockup overflow-hidden border border-stone-200/80 transition-all duration-300">
-      {/* Top Tab Bar (Desktop Browser Top Bar) */}
-      <div className="bg-[#dbe4ee] px-3 pt-2.5 pb-0 flex items-center justify-between select-none border-b border-stone-300/60">
+    <div className="w-full max-w-[1440px] mx-auto bg-white rounded-none sm:rounded-xl shadow-none sm:shadow-mockup overflow-hidden border-0 sm:border sm:border-stone-200/80 transition-all duration-300">
+      
+      {/* Top Tab Bar (Desktop Browser Top Bar) - Shown on tablet & desktop */}
+      <div className="hidden sm:flex bg-[#dbe4ee] px-3 pt-2.5 pb-0 items-center justify-between select-none border-b border-stone-300/60">
         <div className="flex items-center space-x-2 flex-1">
           {/* Active Tab */}
-          <div className="relative flex items-center bg-white text-stone-800 text-[12.5px] font-medium py-2 px-3.5 rounded-t-lg shadow-sm border-t border-x border-stone-300/50 max-w-[240px] w-full">
+          <div className="relative flex items-center bg-white text-stone-800 text-[12px] md:text-[12.5px] font-medium py-2 px-3.5 rounded-t-lg shadow-sm border-t border-x border-stone-300/50 max-w-[220px] md:max-w-[240px] w-full">
             {/* Pink 'C' Favicon Monogram */}
             <div className="w-4 h-4 rounded-full bg-pink-50 border border-pink-300 flex items-center justify-center mr-2 flex-shrink-0">
               <span className="text-[10px] font-serif font-bold text-[#df3b68] leading-none">C</span>
@@ -41,7 +43,7 @@ export const BrowserChrome: FC<BrowserChromeProps> = ({
             
             {/* Close Tab Icon */}
             <button 
-              className="ml-2 text-stone-400 hover:text-stone-750 hover:bg-stone-100 rounded p-0.5"
+              className="ml-2 text-stone-400 hover:text-stone-700 hover:bg-stone-100 rounded p-0.5"
               aria-label="Cerrar pestaña"
             >
               <X className="w-3.5 h-3.5" />
@@ -71,8 +73,8 @@ export const BrowserChrome: FC<BrowserChromeProps> = ({
         </div>
       </div>
 
-      {/* Address & Navigation Bar */}
-      <div className="bg-white px-3 py-2 flex items-center justify-between border-b border-stone-200 gap-3 select-none">
+      {/* Address & Navigation Bar - Desktop / Tablet version */}
+      <div className="hidden sm:flex bg-white px-3 py-2 items-center justify-between border-b border-stone-200 gap-3 select-none">
         {/* Navigation Buttons */}
         <div className="flex items-center space-x-1 text-stone-500">
           <button className="p-1.5 rounded-full hover:bg-stone-100 text-stone-400 transition-colors" title="Atrás">
@@ -94,7 +96,7 @@ export const BrowserChrome: FC<BrowserChromeProps> = ({
               {url}
             </span>
           </div>
-          <button className="text-stone-400 hover:text-amber-450 transition-colors" title="Marcar como favorito">
+          <button className="text-stone-400 hover:text-amber-500 transition-colors" title="Marcar como favorito">
             <Star className="w-3.5 h-3.5" />
           </button>
         </div>
@@ -113,6 +115,17 @@ export const BrowserChrome: FC<BrowserChromeProps> = ({
           <button className="p-1.5 rounded-full hover:bg-stone-100 transition-colors" title="Personalizar y controlar">
             <MoreVertical className="w-4 h-4" />
           </button>
+        </div>
+      </div>
+
+      {/* Mobile Top URL Bar (Subtle, sleek & doesn't steal space) */}
+      <div className="sm:hidden bg-[#f8f9fa] border-b border-stone-200 px-3 py-1.5 flex items-center justify-between">
+        <div className="flex items-center space-x-1.5 text-stone-500 text-xs">
+          <Lock className="w-3 h-3 text-emerald-600" />
+          <span className="font-sans text-stone-700 font-medium text-[11px]">{url}</span>
+        </div>
+        <div className="w-5 h-5 rounded-full bg-pink-100 border border-pink-300 flex items-center justify-center">
+          <span className="text-[9px] font-serif font-bold text-[#df3b68]">C</span>
         </div>
       </div>
 

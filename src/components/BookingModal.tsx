@@ -25,9 +25,9 @@ export const BookingModal: FC<BookingModalProps> = ({
   const services = [
     'Kapping Gel & Nivelación',
     'Soft Gel Extensions',
-    'Nail Art de Autor',
-    'Semipermanente con Manicura Rusa',
-    'Pedicuría & Spa de Pies',
+    'Nail Art de Autor a Mano Alzada',
+    'Esmaltado Semipermanente',
+    'Service & Mantenimiento',
     'Consulta por Cursos / Masterclasses',
   ];
 
@@ -42,33 +42,36 @@ export const BookingModal: FC<BookingModalProps> = ({
       `📅 *Fecha deseada:* ${encodeURIComponent(preferredDate || 'A coordinar')}%0A` +
       `⏰ *Horario preferido:* ${encodeURIComponent(preferredTime)}%0A` +
       (notes ? `📝 *Detalles:* ${encodeURIComponent(notes)}%0A` : '') +
-      `%0A¿Tenés disponibilidad para esa fecha? ¡Gracias!`;
+      `%0A¿Tenés disponibilidad para esa fecha? ¡Muchas gracias!`;
 
     window.open(`https://wa.me/5491112345678?text=${message}`, '_blank');
     onClose();
   };
 
   return (
-    <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
+    <div 
+      className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-3 sm:p-4 overflow-y-auto"
+      onClick={onClose}
+    >
       <div 
-        className="bg-white rounded-3xl max-w-lg w-full p-6 sm:p-8 shadow-2xl border border-pink-100 relative animate-in fade-in zoom-in-95 duration-200 max-h-[90vh] overflow-y-auto"
+        className="bg-white rounded-3xl max-w-lg w-full p-5 sm:p-8 shadow-2xl border border-pink-100 relative animate-in fade-in zoom-in-95 duration-200 my-auto"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Close Button */}
         <button
           onClick={onClose}
-          className="absolute top-5 right-5 text-stone-400 hover:text-stone-700 p-2 rounded-full hover:bg-stone-100 transition-colors"
+          className="absolute top-4 right-4 sm:top-5 sm:right-5 text-stone-400 hover:text-stone-700 p-2 rounded-full hover:bg-stone-100 transition-colors"
           aria-label="Cerrar modal"
         >
           <X className="w-5 h-5" />
         </button>
 
         {/* Modal Header */}
-        <div className="text-center mb-6">
-          <div className="w-12 h-12 rounded-full bg-[#ffeff2] text-[#df3b68] flex items-center justify-center mx-auto mb-3">
-            <Sparkles className="w-6 h-6" />
+        <div className="text-center mb-5 sm:mb-6">
+          <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-[#ffeff2] text-[#df3b68] flex items-center justify-center mx-auto mb-2.5">
+            <Sparkles className="w-5 h-5 sm:w-6 sm:h-6" />
           </div>
-          <h3 className="font-serif text-2xl text-stone-900 font-normal">
+          <h3 className="font-serif text-xl sm:text-2xl text-stone-900 font-normal">
             Reservá tu Turno
           </h3>
           <p className="text-xs text-stone-500 font-sans mt-1">
@@ -77,11 +80,11 @@ export const BookingModal: FC<BookingModalProps> = ({
         </div>
 
         {/* Form */}
-        <form onSubmit={handleSubmit} className="space-y-4">
+        <form onSubmit={handleSubmit} className="space-y-3.5 sm:space-y-4">
           
           {/* Service selection */}
           <div>
-            <label className="block text-xs font-semibold text-stone-700 uppercase tracking-wider mb-1.5">
+            <label className="block text-[11px] font-semibold text-stone-700 uppercase tracking-wider mb-1">
               Tratamiento Deseado
             </label>
             <select
@@ -97,7 +100,7 @@ export const BookingModal: FC<BookingModalProps> = ({
 
           {/* Client Name */}
           <div>
-            <label className="block text-xs font-semibold text-stone-700 uppercase tracking-wider mb-1.5">
+            <label className="block text-[11px] font-semibold text-stone-700 uppercase tracking-wider mb-1">
               Nombre y Apellido
             </label>
             <div className="relative">
@@ -115,7 +118,7 @@ export const BookingModal: FC<BookingModalProps> = ({
 
           {/* WhatsApp Phone */}
           <div>
-            <label className="block text-xs font-semibold text-stone-700 uppercase tracking-wider mb-1.5">
+            <label className="block text-[11px] font-semibold text-stone-700 uppercase tracking-wider mb-1">
               WhatsApp / Teléfono
             </label>
             <div className="relative">
@@ -132,23 +135,21 @@ export const BookingModal: FC<BookingModalProps> = ({
           </div>
 
           {/* Preferred Date & Time */}
-          <div className="grid grid-cols-2 gap-3">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             <div>
-              <label className="block text-xs font-semibold text-stone-700 uppercase tracking-wider mb-1.5">
+              <label className="block text-[11px] font-semibold text-stone-700 uppercase tracking-wider mb-1">
                 Fecha Preferida
               </label>
-              <div className="relative">
-                <input
-                  type="date"
-                  value={preferredDate}
-                  onChange={(e) => setPreferredDate(e.target.value)}
-                  className="w-full bg-[#fff9fa] border border-pink-200 text-stone-900 rounded-xl px-3 py-2 text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-[#df3b68]/40"
-                />
-              </div>
+              <input
+                type="date"
+                value={preferredDate}
+                onChange={(e) => setPreferredDate(e.target.value)}
+                className="w-full bg-[#fff9fa] border border-pink-200 text-stone-900 rounded-xl px-3 py-2 text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-[#df3b68]/40"
+              />
             </div>
 
             <div>
-              <label className="block text-xs font-semibold text-stone-700 uppercase tracking-wider mb-1.5">
+              <label className="block text-[11px] font-semibold text-stone-700 uppercase tracking-wider mb-1">
                 Horario Deseado
               </label>
               <select
@@ -165,14 +166,14 @@ export const BookingModal: FC<BookingModalProps> = ({
 
           {/* Notes */}
           <div>
-            <label className="block text-xs font-semibold text-stone-700 uppercase tracking-wider mb-1.5">
+            <label className="block text-[11px] font-semibold text-stone-700 uppercase tracking-wider mb-1">
               Comentarios o fotos de referencia
             </label>
             <textarea
               rows={2}
               value={notes}
               onChange={(e) => setNotes(e.target.value)}
-              placeholder="¿Tenés service previo de otro estudio? ¿Te gustaría algún diseño en especial?"
+              placeholder="¿Tenés service previo de otro estudio? ¿Querés algún diseño particular?"
               className="w-full bg-[#fff9fa] border border-pink-200 text-stone-900 rounded-xl px-3.5 py-2 text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-[#df3b68]/40 resize-none"
             />
           </div>
