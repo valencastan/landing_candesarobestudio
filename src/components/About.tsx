@@ -3,7 +3,7 @@ import { Sparkles, ShieldCheck, Award, Heart } from 'lucide-react';
 
 export const About: FC = () => {
   return (
-    <section id="sobre-mi" className="py-16 sm:py-20 bg-white border-t border-stone-100">
+    <section id="sobre-mi" className="py-16 sm:py-20 bg-white border-t border-stone-100 scroll-mt-16 sm:scroll-mt-20">
       <div className="max-w-[1360px] mx-auto px-4 sm:px-8 lg:px-12">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
           

@@ -33,7 +33,7 @@ export const FAQ: FC = () => {
   };
 
   return (
-    <section id="faq" className="py-16 sm:py-20 bg-white border-t border-stone-100">
+    <section id="faq" className="py-16 sm:py-20 bg-white border-t border-stone-100 scroll-mt-16 sm:scroll-mt-20">
       <div className="max-w-[900px] mx-auto px-4 sm:px-8">
         
         {/* Section Header */}

@@ -24,7 +24,7 @@ export const BrowserChrome: FC<BrowserChromeProps> = ({
   url = 'candesarobestudio.com' 
 }) => {
   return (
-    <div className="w-full max-w-[1440px] mx-auto bg-white rounded-none sm:rounded-xl shadow-none sm:shadow-mockup overflow-hidden border-0 sm:border sm:border-stone-200/80 transition-all duration-300">
+    <div className="w-full max-w-[1440px] mx-auto bg-white rounded-none sm:rounded-xl shadow-none sm:shadow-mockup border-0 sm:border sm:border-stone-200/80 transition-all duration-300">
       
       {/* Top Tab Bar (Desktop Browser Top Bar) - Shown on tablet & desktop */}
       <div className="hidden sm:flex bg-[#dbe4ee] px-3 pt-2.5 pb-0 items-center justify-between select-none border-b border-stone-300/60">
@@ -130,7 +130,7 @@ export const BrowserChrome: FC<BrowserChromeProps> = ({
       </div>
 
       {/* Web Content Render Area */}
-      <div className="relative bg-white w-full overflow-hidden">
+      <div className="relative bg-white w-full">
         {children}
       </div>
     </div>

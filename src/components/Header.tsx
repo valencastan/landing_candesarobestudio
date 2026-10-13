@@ -1,4 +1,4 @@
-import { useState, Fragment } from 'react';
+import { useState, useEffect, Fragment } from 'react';
 import type { FC, MouseEvent } from 'react';
 import { X, Calendar, MessageCircle, Instagram } from 'lucide-react';
 
@@ -14,6 +14,16 @@ export const Header: FC<HeaderProps> = ({
   onNavigate 
 }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 15);
+    };
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll();
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   const navLinks = [
     { id: 'inicio', label: 'Inicio' },
@@ -39,7 +49,13 @@ export const Header: FC<HeaderProps> = ({
   };
 
   return (
-    <header className="sticky top-0 z-40 w-full bg-white/95 backdrop-blur-md border-b border-stone-100 transition-all">
+    <header 
+      className={`sticky top-0 z-40 w-full transition-all duration-300 ${
+        isScrolled 
+          ? 'bg-white/98 shadow-md border-b border-stone-200/90 py-0 backdrop-blur-md' 
+          : 'bg-white/95 border-b border-stone-100 py-0 backdrop-blur-sm'
+      }`}
+    >
       <div className="max-w-[1360px] mx-auto px-4 sm:px-6 lg:px-8 h-16 sm:h-[72px] flex items-center justify-between">
         
         {/* Left: Elegant Classical Serif Logo */}
@@ -119,16 +135,16 @@ export const Header: FC<HeaderProps> = ({
 
       {/* Mobile Drawer Menu (Responsive & Touch Friendly) */}
       {mobileMenuOpen && (
-        <div className="lg:hidden bg-white border-b border-stone-200 px-5 py-6 shadow-xl animate-in slide-in-from-top-2 duration-200 max-h-[85vh] overflow-y-auto">
+        <div className="lg:hidden bg-white/98 backdrop-blur-lg border-b border-stone-200 px-5 py-6 shadow-2xl animate-in slide-in-from-top-2 duration-200 max-h-[85vh] overflow-y-auto">
           <nav className="flex flex-col space-y-3">
             {navLinks.map((item) => (
               <a
                 key={item.id}
                 href={`#${item.id}`}
                 onClick={(e) => handleNavClick(item.id, e)}
-                className={`text-base py-2 px-3 rounded-lg transition-colors flex items-center justify-between ${
+                className={`text-base py-2.5 px-3.5 rounded-xl transition-colors flex items-center justify-between ${
                   activeSection === item.id 
-                    ? 'text-[#df3b68] bg-pink-50/70 font-semibold' 
+                    ? 'text-[#df3b68] bg-pink-50/80 font-semibold' 
                     : 'text-stone-800 hover:bg-stone-50 hover:text-[#df3b68]'
                 }`}
               >
@@ -145,7 +161,7 @@ export const Header: FC<HeaderProps> = ({
                   setMobileMenuOpen(false);
                   onOpenBooking();
                 }}
-                className="w-full bg-[#df3b68] hover:bg-[#c82855] text-white py-3 rounded-xl text-xs font-semibold uppercase tracking-wider text-center flex items-center justify-center space-x-2 shadow-sm"
+                className="w-full bg-[#df3b68] hover:bg-[#c82855] text-white py-3.5 rounded-xl text-xs font-semibold uppercase tracking-wider text-center flex items-center justify-center space-x-2 shadow-md"
               >
                 <Calendar className="w-4 h-4" />
                 <span>RESERVAR TURNO ONLINE</span>

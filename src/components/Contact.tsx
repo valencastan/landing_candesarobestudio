@@ -7,7 +7,7 @@ interface ContactProps {
 
 export const Contact: FC<ContactProps> = ({ onOpenBooking }) => {
   return (
-    <section id="contacto" className="py-20 bg-[#fff5f7] border-t border-pink-100">
+    <section id="contacto" className="py-20 bg-[#fff5f7] border-t border-pink-100 scroll-mt-16 sm:scroll-mt-20">
       <div className="max-w-[1360px] mx-auto px-6 sm:px-8 lg:px-12">
         
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
